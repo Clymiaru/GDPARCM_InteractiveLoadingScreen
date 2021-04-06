@@ -1,26 +1,10 @@
 #include <pch.h>
-
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <memory>
+#include "Core/BaseRunner.h"
 
 auto main (const int argc, const char** argv) -> int
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
+	auto app = BaseRunner({1280U, 720U},
+						  "App",
+						  60);
+	app.Run();
 }
