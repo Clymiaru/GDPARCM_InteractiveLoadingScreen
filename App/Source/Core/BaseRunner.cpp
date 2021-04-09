@@ -1,31 +1,50 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "BaseRunner.h"
 
-Resolution BaseRunner::WindowSize;
-Uint32 BaseRunner::FramerateLimit;
+#include "EntityComponentSystem/Entity/BGObject.h"
+#include "EntityComponentSystem/Entity/FPSCounter.h"
+#include "EntityComponentSystem/GameObjectManager.h"
+#include "EntityComponentSystem/Entity/TextureDisplay.h"
+#include "AssetSystem/TextureManager.h"
 
-BaseRunner::BaseRunner(Resolution resolution,
-					   StringRef appName,
-					   Uint32 maxFramerate) :
+Resolution BaseRunner::WindowSize;
+
+BaseRunner::BaseRunner(Resolution windowSize,
+					   StringRef title) :
 	m_Event{}
 {
-	WindowSize = std::move(resolution);
-	FramerateLimit = maxFramerate;
-	
+	WindowSize = std::move(windowSize);
+
 	m_Window.create(sf::VideoMode(WindowSize.Width, WindowSize.Height),
-					appName,
+					title,
 					sf::Style::Close);
 
-	m_Window.setFramerateLimit(FramerateLimit);
-	m_Window.setVerticalSyncEnabled(false);
+	// //load initial textures
+	// TextureManager::GetInstance()->LoadFromAssetList();
+	//
+	// m_Window.setFramerateLimit(60);
+	// m_Window.setVerticalSyncEnabled(false);
+	//
+	// //load objects
+	// auto* bgObject = new BGObject("BGObject");
+	// GameObjectManager::GetInstance()->AddObject(bgObject);
+	//
+	// auto* display = new TextureDisplay();
+	// GameObjectManager::GetInstance()->AddObject(display);
+	//
+	// auto* fpsCounter = new FPSCounter();
+	// GameObjectManager::GetInstance()->AddObject(fpsCounter);
 }
 
 void BaseRunner::Run()
 {
+	sf::Clock clock;
+	
 	while (m_Window.isOpen())
 	{
+		const auto dt = clock.restart();
 		ProcessEvents();
-		// Update();
+		Update(dt.asSeconds());
 		Render();
 	}
 }
@@ -39,67 +58,21 @@ void BaseRunner::ProcessEvents()
 			case sf::Event::Closed:
 				m_Window.close();
 				break;
-			case sf::Event::Resized:
+			default:
+				//GameObjectManager::GetInstance()->ProcessInput(event);
 				break;
-			case sf::Event::LostFocus:
-				break;
-			case sf::Event::GainedFocus:
-				break;
-			case sf::Event::TextEntered:
-				break;
-			case sf::Event::KeyPressed:
-				break;
-			case sf::Event::KeyReleased:
-				break;
-			case sf::Event::MouseWheelMoved:
-				break;
-			case sf::Event::MouseWheelScrolled:
-				break;
-			case sf::Event::MouseButtonPressed:
-				break;
-			case sf::Event::MouseButtonReleased:
-				break;
-			case sf::Event::MouseMoved:
-				break;
-			case sf::Event::MouseEntered:
-				break;
-			case sf::Event::MouseLeft:
-				break;
-			case sf::Event::JoystickButtonPressed:
-				break;
-			case sf::Event::JoystickButtonReleased:
-				break;
-			case sf::Event::JoystickMoved:
-				break;
-			case sf::Event::JoystickConnected:
-				break;
-			case sf::Event::JoystickDisconnected:
-				break;
-			case sf::Event::TouchBegan:
-				break;
-			case sf::Event::TouchMoved:
-				break;
-			case sf::Event::TouchEnded:
-				break;
-			case sf::Event::SensorChanged:
-				break;
-			case sf::Event::Count:
-				break;
-			default: ;
 		}
 	}
-
-	// Activate events
 }
 
 void BaseRunner::Update(float deltaTime)
 {
+	GameObjectManager::GetInstance()->Update(deltaTime);
 }
 
 void BaseRunner::Render()
 {
 	m_Window.clear();
-
-
+	GameObjectManager::GetInstance()->Draw(&m_Window);
 	m_Window.display();
 }

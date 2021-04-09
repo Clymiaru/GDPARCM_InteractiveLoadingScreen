@@ -1,31 +1,28 @@
-﻿#pragma once
-
-#include "TypeAlias.h"
-
+#pragma once
 #include <SFML/Graphics.hpp>
+
+#include "Utils/TypeAlias.h"
 
 struct Resolution
 {
-	Uint32 Width;
-	Uint32 Height;
+	Uint Width;
+	Uint Height;
 };
 
 class BaseRunner
 {
 public:
 	static Resolution WindowSize;
-	static Uint32 FramerateLimit;
 
-	explicit BaseRunner(Resolution resolution,
-						StringRef appName,
-						Uint32 maxFramerate);
-
+	BaseRunner(Resolution windowSize,
+			   StringRef title);
 	void Run();
+
 private:
 	sf::Event m_Event;
 	sf::RenderWindow m_Window;
-
+	
+	void Render();
 	void ProcessEvents();
 	void Update(float deltaTime);
-	void Render();
 };

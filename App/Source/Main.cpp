@@ -1,10 +1,8 @@
-#include <pch.h>
+#include "pch.h"
 #include "Core/BaseRunner.h"
 
-auto main (const int argc, const char** argv) -> int
+auto main(const int argc, const char** argv) -> int
 {
-	auto app = BaseRunner({1280U, 720U},
-						  "App",
-						  60);
+	auto app = BaseRunner({1280, 720}, "Interactive Loading Screen");
 	app.Run();
 }
