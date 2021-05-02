@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "TypeAlias.h"
 
-namespace StringUtils
+namespace Utils::String
 {
-	std::vector<std::string> split(const std::string& s,
-	                               char delimiter);
+	auto split(StringRef s,
+	           char delimiter) -> std::vector<std::string>;
 };

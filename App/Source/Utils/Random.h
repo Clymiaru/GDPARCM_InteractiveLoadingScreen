@@ -1,17 +1,17 @@
 ﻿#pragma once
 #include <random>
 
-class Random
+namespace Utils
 {
-public:
-	static int GetInt(int min,
-                      int max);
-
-	static float GetFloat(float min,
-                          float max);
-
-	static bool GetBool();
-
-private:
-	static std::random_device m_Generator;
-};
+	class Random final
+	{
+	public:
+		static int GetInt(int min,
+		                  int max);
+		static float GetFloat(float min,
+		                      float max);
+		static bool GetBool();
+	private:
+		static std::random_device m_Generator;
+	};
+}

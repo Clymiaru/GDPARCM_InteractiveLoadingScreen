@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "Core/SceneManagement/AScene.h"
+#include "EventSystem/Event.h"
 #include "Utils/TypeAlias.h"
 
 struct Resolution
@@ -9,20 +11,30 @@ struct Resolution
 	Uint Height;
 };
 
-class BaseRunner
+class BaseRunner final
 {
 public:
 	static Resolution WindowSize;
 
 	BaseRunner(Resolution windowSize,
-			   StringRef title);
+               StringRef title,
+               List<AScene*> availableScenes,
+               StringRef startingSceneName);
+	~BaseRunner();
+	
 	void Run();
 
 private:
 	sf::Event m_Event;
 	sf::RenderWindow m_Window;
-	
-	void Render();
+	String m_DefaultSceneName;
+	float m_Ticks = 0.0f;
+	bool m_IsRunning = false;
+	Queue<Event*> m_EventQueue;
+
+	void Initialize();
 	void ProcessEvents();
 	void Update(float deltaTime);
+	void Render();
+	void Deinitialize();
 };
