@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Component/Behavior/DestroyOnClickComponent.h"
 #include "Core/EventSystem/Event.h"
-#include "Core/SystemManagement/AEventSystem.h"
+#include "ECS/AEventSystem.h"
 
 class DestroyOnClickSystem final : public AEventSystem
 {

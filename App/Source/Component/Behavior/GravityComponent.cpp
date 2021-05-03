@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "GravityComponent.h"
 
-#include "Core/EntitySystem/Entity.h"
+#include "ECS/Entity.h"
 
 GravityComponent::GravityComponent(Entity& owner,
                                    TransformComponent& transform,

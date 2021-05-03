@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <SFML/Graphics/Transformable.hpp>
 
-#include "Core/EntitySystem/AComponent.h"
+#include "ECS/AComponent.h"
 
 class TransformComponent final : public AComponent
 {

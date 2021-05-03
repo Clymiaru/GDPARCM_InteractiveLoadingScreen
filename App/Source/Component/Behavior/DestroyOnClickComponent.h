@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Component/Data/TransformComponent.h"
 
-#include "Core/EntitySystem/AComponent.h"
+#include "ECS/AComponent.h"
 
 class DestroyOnClickComponent final : public AComponent
 {

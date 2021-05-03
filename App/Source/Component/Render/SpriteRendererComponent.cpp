@@ -2,7 +2,7 @@
 #include "SpriteRendererComponent.h" 
 
 
-#include "Core/EntitySystem/Entity.h"
+#include "ECS/Entity.h"
 
 SpriteRendererComponent::SpriteRendererComponent(Entity& owner,
 												 Texture& texture,
@@ -31,6 +31,17 @@ AComponent* SpriteRendererComponent::Clone(Entity& newOwner)
     return new SpriteRendererComponent(newOwner,
     								   m_Texture,
     								   *newOwner.GetComponent<TransformComponent>());
+}
+
+void SpriteRendererComponent::SetTextureRect(const sf::IntRect& textureRect)
+{
+	m_Sprite.setTextureRect(textureRect);
+	m_Sprite.setOrigin(textureRect.width / 2.0f, textureRect.height / 2.0f);
+}
+
+void SpriteRendererComponent::SetOrigin(const sf::Vector2f origin)
+{
+	m_Sprite.setOrigin(origin);
 }
 
 const sf::Sprite& SpriteRendererComponent::GetSprite() const

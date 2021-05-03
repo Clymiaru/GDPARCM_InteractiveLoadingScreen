@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Core/EntitySystem/Entity.h"
+#include "Entity.h"
 
 enum class SystemType
 {

@@ -1,15 +1,14 @@
 #include "pch.h"
 #include "Core/BaseRunner.h"
 
-#include "Core/SceneManagement/SceneManager.h"
-#include "Scene/Scenes.h"
-#include "Scene/LoadingScene.h"
-#include "Scene/MainScene.h"
+#include "SceneManagement/Scene/Scenes.h"
+#include "SceneManagement/Scene/LoadingScene.h"
+#include "SceneManagement/Scene/MainScene.h"
 
 int main(const int argc,
           const char** argv)
 {
-	auto app = BaseRunner({1280, 720},
+	auto app = BaseRunner({1920 - 160, 1080 - 160},
 						  "Interactive Loading Screen",
 						  {new LoadingScene(), new MainScene()},
 						  Scenes::LOADING_SCENE);

@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "BaseRunner.h"
 
-#include "EntitySystem/EntityManager.h"
+#include "ECS/EntityManager.h"
 #include "Event/ApplicationEvent.h"
 #include "Event/KeyEvent.h"
 #include "Event/MouseEvent.h"
 #include "EventSystem/EventBroadcaster.h"
 #include "SceneManagement/SceneManager.h"
-#include "SystemManagement/EntitySystemManager.h"
+#include "ECS/EntitySystemManager.h"
 
 Resolution BaseRunner::WindowSize;
 
@@ -23,6 +23,8 @@ BaseRunner::BaseRunner(Resolution windowSize,
 	m_Window.create(sf::VideoMode(width, height),
                     title,
                     sf::Style::Close);
+
+	m_Window.setFramerateLimit(60);
 
 	m_IsRunning = m_Window.isOpen();
 

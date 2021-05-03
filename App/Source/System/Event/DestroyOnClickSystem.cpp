@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "DestroyOnClickSystem.h"
 #include "Event/MouseEvent.h"
-#include "Core/EntitySystem/EntityManager.h"
+#include "ECS/EntityManager.h"
 
 DestroyOnClickSystem::DestroyOnClickSystem()
 {
@@ -31,9 +31,6 @@ void DestroyOnClickSystem::ProcessEvent(Event& event)
 						"Destroy entity " << component->GetName() << ".")
 				EntityManager::GetInstance().DestroyEntity(component->GetOwner());
 			}
-			
 		}
-		
 	}
-	
 }

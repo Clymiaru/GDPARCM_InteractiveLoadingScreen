@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Core/SceneManagement/AScene.h"
+#include "SceneManagement/AScene.h"
 
 class MainScene final : public AScene
 {

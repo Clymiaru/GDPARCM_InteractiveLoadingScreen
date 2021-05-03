@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "MovementComponent.h"
 
-#include "Core/EntitySystem/Entity.h"
+#include "ECS/Entity.h"
 
 MovementComponent::MovementComponent(Entity& owner,
                                      TransformComponent& transform,

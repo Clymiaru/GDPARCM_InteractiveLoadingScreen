@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <SFML/System/Vector2.hpp>
 
-#include "Core/EntitySystem/AComponent.h"
+#include "ECS/AComponent.h"
 
 class VelocityComponent final : public AComponent
 {

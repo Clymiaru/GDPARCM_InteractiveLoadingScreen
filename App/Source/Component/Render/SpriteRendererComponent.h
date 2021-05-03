@@ -2,10 +2,10 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/String.hpp>
 
-#include "Core/EntitySystem/AComponent.h"
+#include "ECS/AComponent.h"
 #include "Component/Data/TransformComponent.h"
 
-#include "Asset/Texture/Texture.h"
+#include "AssetManagement/Texture/Texture.h"
 
 class SpriteRendererComponent final : public AComponent
 {
@@ -19,6 +19,9 @@ public:
 	MAKE_COMPONENT(SpriteRenderer)
 
 	AComponent* Clone(Entity& newOwner) override;
+
+	void SetTextureRect(const sf::IntRect& textureRect);
+	void SetOrigin(const sf::Vector2f origin);
 
 	const sf::Sprite& GetSprite() const;
 	const sf::Transform& GetTransform() const;

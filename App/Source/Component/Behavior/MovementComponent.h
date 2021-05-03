@@ -2,7 +2,7 @@
 #include "Component/Data/TransformComponent.h"
 #include "Component/Data/VelocityComponent.h"
 
-#include "Core/EntitySystem/AComponent.h"
+#include "ECS/AComponent.h"
 
 class MovementComponent : public AComponent
 {

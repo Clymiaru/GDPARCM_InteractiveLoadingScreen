@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "Core/SceneManagement/AScene.h"
+#include "SceneManagement/AScene.h"
 #include "EventSystem/Event.h"
 #include "Utils/TypeAlias.h"
 

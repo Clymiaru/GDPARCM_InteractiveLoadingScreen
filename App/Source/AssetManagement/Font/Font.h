@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/AssetManagement/Asset.h"
+#include "AssetManagement/Asset.h"
 #include <SFML/Graphics.hpp>
 
 class Font final : public Asset
