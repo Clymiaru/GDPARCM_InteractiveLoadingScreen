@@ -133,7 +133,7 @@ void LoadingScene::CreateEntities()
 		auto& transform = comic.BindComponent<TransformComponent>();
 		
 		transform.SetPosition({BaseRunner::WindowSize.Width * 0.75f, BaseRunner::WindowSize.Height * 0.4f});
-		transform.SetScale({0.85f, 0.85f});
+		transform.SetScale({1.0f, 1.0f});
 		
 		auto& sprite = comic.BindComponent<SpriteRendererComponent>(texture, transform);
 

@@ -20,7 +20,7 @@ void FPSCounterComponent::UpdateFPS(float deltaTime)
 
 	if (m_ElapsedTime > 1.0f)
 	{
-		m_TextComponent.UpdateText(std::to_string(m_Frames));
+		m_TextComponent.UpdateText("FPS: " + std::to_string(m_Frames));
 		m_Frames = 0;
 		m_ElapsedTime = 0.0f;
 	}

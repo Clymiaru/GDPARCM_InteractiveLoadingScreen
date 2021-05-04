@@ -54,6 +54,7 @@ project (GameName)
 	}
 
 	defines {
+	    "_CRT_SECURE_NO_WARNINGS",
         "SFML_STATIC"
     }
 
