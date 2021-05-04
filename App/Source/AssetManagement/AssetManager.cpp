@@ -14,9 +14,15 @@ int AssetManager::GetCurrentLoadedAsyncAssets() const
 	return m_CurrentlyAsyncLoadedAssets;
 }
 
+int AssetManager::GetMaxAsyncAssets() const
+{
+	return m_MaxAsyncLoadedAssets;
+}
+
 AssetManager::AssetManager() :
 	m_AssetStorage(HashTable<AssetTag, AssetTable>()),
-	m_CurrentlyAsyncLoadedAssets{0}
+	m_CurrentlyAsyncLoadedAssets{0},
+	m_MaxAsyncLoadedAssets{0}
 {
 }
 

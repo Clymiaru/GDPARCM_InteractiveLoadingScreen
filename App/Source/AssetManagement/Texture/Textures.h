@@ -54,4 +54,16 @@ namespace TextureFilepaths
 	// Textures for the Main Scene
 	const String TRANSITION_IMAGE = "Content/MainScene/BlackScreen.png";
 	const String MAIN_BACKGROUND = "Content/MainScene/Background.png";
+	const String HIYORI_ICON = "Content/MainScene/Hiyori.png";
+	const String KYOUKA_ICON = "Content/MainScene/Kyouka.png";
+	const String MIMI_ICON = "Content/MainScene/Mimi.png";
+	const String MISOGI_ICON = "Content/MainScene/Misogi.png";
+	const String RANGER_MAHIRU_ICON = "Content/MainScene/Ranger_Mahiru.png";
+	const String RANGER_RIN_ICON = "Content/MainScene/Ranger_Rin.png";
+	const String REI_ICON = "Content/MainScene/Rei.png";
+	const String RIMA_ICON = "Content/MainScene/Rima.png";
+	const String SHIORI_ICON = "Content/MainScene/Shiori.png";
+	const String YUI_ICON = "Content/MainScene/Yui.png";
+	const String MISOGI_STAND = "Content/MainScene/Misogi_Stand.png";
+	const String MIYAKO_STAND = "Content/MainScene/Miyako_Stand.png";
 }

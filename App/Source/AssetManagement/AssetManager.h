@@ -32,10 +32,12 @@ public:
 	Resource& Acquire(StringRef name);
 
 	int GetCurrentLoadedAsyncAssets() const;
+	int GetMaxAsyncAssets() const;
 private:
 	AssetManager();
 	HashTable<AssetTag, AssetTable> m_AssetStorage;
 	Uint64 m_CurrentlyAsyncLoadedAssets;
+	Uint64 m_MaxAsyncLoadedAssets;
 };
 
 template <typename Resource>
@@ -56,9 +58,12 @@ void AssetManager::LoadAsync(StringRef name,
 							 StringRef filepath)
 {
 	m_CurrentlyAsyncLoadedAssets = 0;
+	m_MaxAsyncLoadedAssets = 0;
 	auto* assetStorageMutex = new std::mutex();
 	LoadAssetAction<Resource>* action = new LoadAssetAction<Resource>(name, filepath, m_AssetStorage,
-												 m_CurrentlyAsyncLoadedAssets, assetStorageMutex);
+												 m_CurrentlyAsyncLoadedAssets,
+												 m_MaxAsyncLoadedAssets,
+												 assetStorageMutex);
 	ThreadPoolManager::GetInstance().ScheduleThreadPoolTask("AssetThreadPool", action);
 }
 

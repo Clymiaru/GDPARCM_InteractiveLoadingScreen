@@ -17,6 +17,7 @@ public:
 					StringRef filepath,
 					HashTable<CString, HashTable<String, Asset*>>& assetStorage,
 					Uint64& currentlyAsyncAssetsLoaded,
+					Uint64& maxAsyncAssetsLoaded,
 					std::mutex* assetStorageMutex);
 
 	~LoadAssetAction();
@@ -27,6 +28,7 @@ private:
 	String m_AssetFilepath;
 	HashTable<CString, HashTable<String, Asset*>>& m_AssetStorage;
 	Uint64& m_CurrentlyAsyncLoadedAssets;
+	Uint64& m_MaxAsyncLoadedAssets;
 	std::mutex* m_AssetStorageMutex;
 };
 
@@ -35,11 +37,13 @@ LoadAssetAction<Resource>::LoadAssetAction(StringRef name,
 										   StringRef filepath,
 										   HashTable<CString, HashTable<String, Asset*>>& assetStorage,
 										   Uint64& currentlyAsyncAssetsLoaded,
+										   Uint64& maxAsyncAssetsLoaded,
 										   std::mutex* assetStorageMutex) :
 	m_AssetName{name},
 	m_AssetFilepath{filepath},
 	m_AssetStorage{assetStorage},
 	m_CurrentlyAsyncLoadedAssets{currentlyAsyncAssetsLoaded},
+	m_MaxAsyncLoadedAssets{maxAsyncAssetsLoaded},
 	m_AssetStorageMutex{assetStorageMutex}
 {
 }
@@ -54,6 +58,7 @@ void LoadAssetAction<Resource>::OnExecuteAction()
 {
 	m_AssetStorageMutex->lock();
 	auto& selectedAssetStorage = m_AssetStorage[Resource::GetStaticTag()];
+	m_MaxAsyncLoadedAssets++;
 	m_AssetStorageMutex->unlock();
 
 	Thread::Sleep(5.0f);

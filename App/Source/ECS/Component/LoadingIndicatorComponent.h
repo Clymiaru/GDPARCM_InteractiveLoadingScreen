@@ -12,6 +12,7 @@ public:
 	MAKE_COMPONENT(LoadingIndicatorComponent)
 
 	void UpdateProgress(int currentProgress);
+	void UpdateMaxProgress(int maxProgress);
 	int GetCurrentProgress() const;
 	int GetMaxExpectedProgress() const;
 

@@ -16,6 +16,11 @@ void LoadingIndicatorComponent::UpdateProgress(int currentProgress)
 	m_CurrentProgress = currentProgress;
 }
 
+void LoadingIndicatorComponent::UpdateMaxProgress(int maxProgress)
+{
+	m_MaxExpectedLoadedAssets = maxProgress;
+}
+
 int LoadingIndicatorComponent::GetCurrentProgress() const
 {
 	return m_CurrentProgress;

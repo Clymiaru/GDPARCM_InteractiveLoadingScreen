@@ -48,9 +48,6 @@ void LoadingScene::LoadResourcesImpl()
 {
 	INFO_LOG(SceneSystem, GetName() << " is loading resources!")
 
-	AssetManager::GetInstance().Load<Texture>(TextureNames::SHIORI_STAND,
-                                            TextureFilepaths::SHIORI_STAND);
-
 	AssetManager::GetInstance().Load<Music>(MusicNames::LOADING_BGM,
                                             MusicFilepaths::LOADING_BGM);
 
@@ -59,6 +56,10 @@ void LoadingScene::LoadResourcesImpl()
 
 	AssetManager::GetInstance().Load<Texture>(TextureNames::PLAY_BUTTON,
                                             TextureFilepaths::PLAY_BUTTON);
+
+
+	AssetManager::GetInstance().Load<Texture>(TextureNames::SHIORI_STAND,
+                                            TextureFilepaths::SHIORI_STAND);
 }
 
 void LoadingScene::CreateEntities()
