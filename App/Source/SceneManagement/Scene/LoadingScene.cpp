@@ -140,12 +140,6 @@ void LoadingScene::CreateEntities()
 		EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(comic);
 	}
 
-	// auto& loadingBar = EntityManager::GetInstance().CreateEntity("LoadingBar");
-	// {
-	// }
-	
-	
-
 	auto& fpsCounter = EntityManager::GetInstance().CreateEntity("FPSCounter");
 	{
 		auto& font = AssetManager::GetInstance().Acquire<Font>(FontNames::MAIN);
@@ -193,29 +187,11 @@ void LoadingScene::CreateEntities()
 		EntitySystemManager::GetInstance().MarkEntity<TextRenderSystem>(loadingIndicator);
 		EntitySystemManager::GetInstance().MarkEntity<LoadingIndicatorSystem>(loadingIndicator);
 	}
-
-	// Create a loading bar (Slider Component)
-	// Create an FPS counter that updates every 0.5s
-
-	// Setup the main scene
-	// Setup the threading implementation of loading assets in the background
-
-	// After everything works smoothly with the loading bar,
-	//	proceed to replicate the plan for the loading screen
-	
-	/*
-		auto& fpsCounter = UIManager::GetInstance().CreateWidget("FPSCounter");
-		auto& rect = fpsCounter.BindComponent<RectComponent>();
-		auto& text = fpsCounter.BindComponent<TextComponent>(rect);
-		fpsCounter.BindComponent<FPSComponent>(); 
-		SystemManager::GetInstance().MarkWidget<FPSSystem>();
-	 */
 }
 
 void LoadingScene::Initialize()
 {
 	INFO_LOG(SceneSystem, GetName() << " is initializing!")
-	// IF we have time, defer it after a loop has been executed.
 	SceneManager::GetInstance().PreloadSceneResources({Scenes::MAIN_SCENE});
 }
 
