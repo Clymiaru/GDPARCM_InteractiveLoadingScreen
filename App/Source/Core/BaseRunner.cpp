@@ -5,7 +5,6 @@
 #include "Event/ApplicationEvent.h"
 #include "Event/KeyEvent.h"
 #include "Event/MouseEvent.h"
-#include "EventSystem/EventBroadcaster.h"
 #include "SceneManagement/SceneManager.h"
 #include "ECS/EntitySystemManager.h"
 
@@ -45,29 +44,10 @@ void BaseRunner::Run()
 	{
 		const auto dt = clock.restart();
 		Initialize();
-			// If there is a need to order an initialization,
-			// redesign or add a second initialization block
-		
 		ProcessEvents();
-			// Store all events polled
-			// Dispatch the system-related events first -> execute
-			// Dispatch the remaining polled events to the UI system first -> execute
-			// Dispatch the remaining polled events to the ECS -> execute
-			// Empty polled event list
-		
 		Update(dt.asSeconds());
-			// Update ECS first
-			// Update UI
-			// Update System (if necessary)
-		
 		Render();
-			// TODO (Maybe): Sprite batching rendering feature
-			// Render ECS
-			// Render UI
-		
 		Deinitialize();
-			// Deinitialize all things that need to be deinitialized at this moment
-			// Actual destruction of Entities or Widgets right after deinitialization	
 	}
 }
 

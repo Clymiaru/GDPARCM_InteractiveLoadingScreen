@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "ASystem.h"
 
-#include "Core/EventSystem/Event.h"
+#include "Event/Event.h"
 
 class AEventSystem : public ASystem
 {

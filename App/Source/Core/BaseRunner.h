@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "SceneManagement/AScene.h"
-#include "EventSystem/Event.h"
+#include "Event/Event.h"
 #include "Utils/TypeAlias.h"
 
 struct Resolution

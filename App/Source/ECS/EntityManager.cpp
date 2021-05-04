@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-#include "Core/SystemManagement/EntitySystemManager.h"
+#include "ECS/EntitySystemManager.h"
 
 #include "Utils/TypeAlias.h"
 
@@ -54,14 +54,6 @@ void EntityManager::DestroyEntity(Entity& entity)
 		m_EntityTable.erase(entity.GetName());
 		m_EntityList.erase(foundEntity);
 		m_EntityList.shrink_to_fit();
-
-		
-	
-		// Erase entity data from all systems concerned
-		// EventSystem
-		// RenderSystem
-		// BehaviorSystem
-		// Others if there are
 	}
 }
 
@@ -74,6 +66,14 @@ void EntityManager::DestroyMarkedEntities()
 		INFO_LOG(EntitySystem, "Entity " << entity->GetName() << " destroyed!" )
 		EntitySystemManager::GetInstance().UnmarkEntityInRegisteredSystems(*entity);
 		delete entity;
+	}
+}
+
+void EntityManager::DestroyAllEntities()
+{
+	for (auto* entity : m_EntityList)
+	{
+		DestroyEntity(*entity);
 	}
 }
 

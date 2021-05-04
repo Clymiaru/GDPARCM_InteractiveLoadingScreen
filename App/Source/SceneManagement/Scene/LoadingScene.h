@@ -12,9 +12,10 @@ public:
 	explicit LoadingScene();
 	~LoadingScene() override;
 	
-	void LoadResources() override;
+	void LoadResourcesImpl() override;
 	void CreateEntities() override;
 	void Initialize() override;
+	void DestroyEntities() override;
 	void UnloadResources() override;
 	void Deinitialize() override;
 };

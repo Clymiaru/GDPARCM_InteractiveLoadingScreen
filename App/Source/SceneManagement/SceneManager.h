@@ -1,6 +1,8 @@
 #pragma once
 #include "AScene.h"
 
+#include "Threading/Thread/ThreadPool.h"
+
 class SceneManager final
 {
 public:
@@ -15,7 +17,7 @@ public:
 	void RegisterScenes(List<AScene*> scenes);
 
 	void LoadScenes(List<String> sceneNames);
-	void LoadScenesAsync(List<String> sceneNames);
+	void PreloadSceneResources(List<String> sceneNames);
 
 	void SetDefaultSceneNames(List<String> defaultSceneNames);
 	void LoadDefaultScenes();
@@ -37,4 +39,5 @@ private:
 	
 	Queue<AScene*> m_InitializeScenesQueue;
 	Queue<AScene*> m_DeinitializeScenesQueue;
+	
 };

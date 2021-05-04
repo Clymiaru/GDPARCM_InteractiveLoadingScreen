@@ -1,7 +1,11 @@
 #pragma once
 #include "Asset.h"
+
+#include "Threading/ThreadPoolManager.h"
+#include "Threading/WorkerAction/LoadAssetAction.h"
 using AssetTable = HashTable<String, Asset*>;
 
+// Create a function for threaded asset loading.
 class AssetManager final
 {
 public:
@@ -13,21 +17,28 @@ public:
 	static AssetManager& GetInstance();
 	~AssetManager();
 	
-	template <class Resource>
+	template <typename Resource>
 	void Load(StringRef name,
 	          StringRef filepath);
+
+	template <typename Resource>
+    void LoadAsync(StringRef name,
+              StringRef filepath);
 	
-	template <class Resource>
+	template <typename Resource>
 	void Unload(StringRef name);
-	
-	template <class Resource>
+
+	template <typename Resource>
 	Resource& Acquire(StringRef name);
+
+	int GetCurrentLoadedAsyncAssets() const;
 private:
 	AssetManager();
 	HashTable<AssetTag, AssetTable> m_AssetStorage;
+	Uint64 m_CurrentlyAsyncLoadedAssets;
 };
 
-template <class Resource>
+template <typename Resource>
 void AssetManager::Load(StringRef name,
                        StringRef filepath)
 {
@@ -40,7 +51,18 @@ void AssetManager::Load(StringRef name,
 	       Resource::GetStaticTag() << " (" << name << ") has already been loaded!")
 }
 
-template <class Resource>
+template <typename Resource>
+void AssetManager::LoadAsync(StringRef name,
+							 StringRef filepath)
+{
+	m_CurrentlyAsyncLoadedAssets = 0;
+	auto* assetStorageMutex = new std::mutex();
+	LoadAssetAction<Resource>* action = new LoadAssetAction<Resource>(name, filepath, m_AssetStorage,
+												 m_CurrentlyAsyncLoadedAssets, assetStorageMutex);
+	ThreadPoolManager::GetInstance().ScheduleThreadPoolTask("AssetThreadPool", action);
+}
+
+template <typename Resource>
 void AssetManager::Unload(StringRef name)
 {
 	auto& selectedAssetStorage = m_AssetStorage[Resource::GetStaticTag()];
@@ -53,7 +75,7 @@ void AssetManager::Unload(StringRef name)
 	delete deletedAsset;
 }
 
-template <class Resource>
+template <typename Resource>
 Resource& AssetManager::Acquire(StringRef name)
 {
 	auto& selectedAssetStorage = m_AssetStorage[Resource::GetStaticTag()];

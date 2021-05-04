@@ -13,8 +13,6 @@ public:
 	template <class Component>
     Component* GetComponent();
 	
-	Entity* Clone(StringRef newEntityName);
-
 	StringRef GetName() const;
 	void SetName(StringRef name);
 

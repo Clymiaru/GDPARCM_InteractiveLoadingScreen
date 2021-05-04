@@ -15,6 +15,8 @@ public:
 
 	void DestroyMarkedEntities();
 
+	void DestroyAllEntities();
+
 private:
 	EntityManager();
 

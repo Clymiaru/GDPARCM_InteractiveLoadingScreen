@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "SceneManager.h"
+
+#include <mutex>
+
+
 #include "Utils/Debug.h"
 
 SceneManager::SceneManager()
@@ -44,8 +48,14 @@ void SceneManager::LoadScenes(List<String> sceneNames)
 	}
 }
 
-void SceneManager::LoadScenesAsync(List<String> sceneNames)
+void SceneManager::PreloadSceneResources(List<String> sceneNames)
 {
+	// Put it in a thread
+	for (auto sceneName : sceneNames)
+	{
+		auto* scene = m_SceneStorage[sceneName];
+		scene->LoadResources();
+	}
 }
 
 void SceneManager::LoadDefaultScenes()
@@ -61,6 +71,7 @@ void SceneManager::InitializeScenes()
 		scene->LoadResources();
 		scene->CreateEntities();
 		scene->Initialize();
+		m_ActiveScenes.emplace_back(scene);
 		m_InitializeScenesQueue.pop();
 	}
 }

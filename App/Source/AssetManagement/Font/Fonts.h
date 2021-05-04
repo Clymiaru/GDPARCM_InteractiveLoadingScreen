@@ -3,10 +3,10 @@
 
 namespace FontNames
 {
-	const String TEST = "TEST";
+	const String MAIN = "MainFont";
 };
 
 namespace FontFilepaths
 {
-	const String TEST = "assets/Fonts/Emulogic/Emulogic.ttf";
+	const String MAIN = "Content/trebuc.ttf";
 }
