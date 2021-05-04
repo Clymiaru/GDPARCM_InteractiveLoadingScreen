@@ -57,36 +57,95 @@ void LoadingScene::LoadResourcesImpl()
 	AssetManager::GetInstance().Load<Texture>(TextureNames::PLAY_BUTTON,
                                             TextureFilepaths::PLAY_BUTTON);
 
+	AssetManager::GetInstance().Load<Texture>(TextureNames::SHIORI_RUN_ANIM,
+                                            TextureFilepaths::SHIORI_RUN_ANIM);
 
 	AssetManager::GetInstance().Load<Texture>(TextureNames::SHIORI_STAND,
                                             TextureFilepaths::SHIORI_STAND);
+
+	AssetManager::GetInstance().Load<Texture>(TextureNames::SHIORI_COMIC,
+                                            TextureFilepaths::SHIORI_COMIC);
+
+	AssetManager::GetInstance().Load<Texture>(TextureNames::SHIORI_BG,
+                                            TextureFilepaths::SHIORI_BG);
 }
 
 void LoadingScene::CreateEntities()
 {
-	// Characters:
-	// - Shiori
-	// - Hatsune
 	auto& bgm = AssetManager::GetInstance().Acquire<Music>(MusicNames::LOADING_BGM);
 	bgm.EnableLooping(true);
 	bgm.SetVolume(100.0f);
 	bgm.Play();
+
+	{
+		auto& bg = EntityManager::GetInstance().CreateEntity("Background");
+		
+		auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::SHIORI_BG);
+		auto& transform = bg.BindComponent<TransformComponent>();
+		
+		transform.SetPosition({BaseRunner::WindowSize.Width * 0.50f, BaseRunner::WindowSize.Height * 0.5f});
+		transform.SetScale({1.0f, 1.0f});
+		
+		auto& sprite = bg.BindComponent<SpriteRendererComponent>(texture, transform);
+
+		EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(bg);
+	}
 	
-	// auto& shioriRun = EntityManager::GetInstance().CreateEntity("ShioriRun");
-	// {
-	// 	auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::SHIORI_STAND);
-	// 	auto& transform = shioriRun.BindComponent<TransformComponent>();
-	// 	transform.SetPosition({BaseRunner::WindowSize.Width * 0.50f, BaseRunner::WindowSize.Height * 0.50f});
-	// 	transform.SetScale({0.5f, 0.5f});
-	// 	auto& sprite = shioriRun.BindComponent<SpriteRendererComponent>(texture, transform);
-	// 	sprite.SetOrigin({480.0f / 2, 480.0f / 2});
-	// 	EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(shioriRun);
-	// }
+	{
+		auto& run = EntityManager::GetInstance().CreateEntity("Run");
+		
+		auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::SHIORI_RUN_ANIM);
+		auto& transform = run.BindComponent<TransformComponent>();
+		
+		transform.SetPosition({BaseRunner::WindowSize.Width * 0.70f, BaseRunner::WindowSize.Height * 0.915f});
+		transform.SetScale({0.35f, 0.35f});
+		
+		auto& sprite = run.BindComponent<SpriteRendererComponent>(texture, transform);
+		sprite.SetOrigin({480.0f / 2, 480.0f / 2});
+
+		run.BindComponent<SpriteAnimatorComponent>(sprite,
+													  sf::Vector2i(480, 480),
+													  5, 7,
+													  0.015f);
+		
+		EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(run);
+		EntitySystemManager::GetInstance().MarkEntity<SpriteAnimationSystem>(run);
+	}
+
+	{
+		auto& stand = EntityManager::GetInstance().CreateEntity("Stand");
+		
+		auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::SHIORI_STAND);
+		auto& transform = stand.BindComponent<TransformComponent>();
+		
+		transform.SetPosition({BaseRunner::WindowSize.Width * 0.24f, BaseRunner::WindowSize.Height * 0.57f});
+		transform.SetScale({0.8f, 0.8f});
+		
+		auto& sprite = stand.BindComponent<SpriteRendererComponent>(texture, transform);
+
+		EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(stand);
+	}
+
+	{
+		auto& comic = EntityManager::GetInstance().CreateEntity("Comic");
+		
+		auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::SHIORI_COMIC);
+		auto& transform = comic.BindComponent<TransformComponent>();
+		
+		transform.SetPosition({BaseRunner::WindowSize.Width * 0.75f, BaseRunner::WindowSize.Height * 0.4f});
+		transform.SetScale({0.85f, 0.85f});
+		
+		auto& sprite = comic.BindComponent<SpriteRendererComponent>(texture, transform);
+
+		EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(comic);
+	}
 
 	// auto& loadingBar = EntityManager::GetInstance().CreateEntity("LoadingBar");
 	// {
 	// }
 	
+	
+
 	auto& fpsCounter = EntityManager::GetInstance().CreateEntity("FPSCounter");
 	{
 		auto& font = AssetManager::GetInstance().Acquire<Font>(FontNames::MAIN);
@@ -98,36 +157,38 @@ void LoadingScene::CreateEntities()
 		EntitySystemManager::GetInstance().MarkEntity<TextRenderSystem>(fpsCounter);
 		EntitySystemManager::GetInstance().MarkEntity<FPSCounterSystem>(fpsCounter);
 	}
-	
-	auto& proceedButton = EntityManager::GetInstance().CreateEntity("ProceedButton");
-	{
-		auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::PLAY_BUTTON);
-		auto& transform = proceedButton.BindComponent<TransformComponent>();
-
-		auto& sprite = proceedButton.BindComponent<SpriteRendererComponent>(texture, transform);
-		transform.SetPosition({BaseRunner::WindowSize.Width * 0.95f, BaseRunner::WindowSize.Height * 0.92f});
-		transform.SetScale({0.5f, 0.5f});
-
-		proceedButton.BindComponent<ButtonComponent>(transform,
-													 sf::Vector2f{128.0f, 128.0f},
-													 []
-													 {
-													 	SceneManager::GetInstance().UnloadActiveScenes();
-														 SceneManager::GetInstance().LoadScenes({Scenes::MAIN_SCENE});
-													 });
-
-		EntitySystemManager::GetInstance().MarkEntity<ButtonEventSystem>(proceedButton);
-		EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(proceedButton);
-	}
 
 	auto& loadingIndicator = EntityManager::GetInstance().CreateEntity("LoadingIndicator");
 	{
 		auto& font = AssetManager::GetInstance().Acquire<Font>(FontNames::MAIN);
 		auto& transform = loadingIndicator.BindComponent<TransformComponent>();
 		auto& textComponent = loadingIndicator.BindComponent<TextComponent>(transform, font, 48);
-		transform.SetPosition({200, 200});
+		transform.SetPosition({BaseRunner::WindowSize.Width * 0.75f, BaseRunner::WindowSize.Height * 0.90f});
 
-		auto& loadingComponent = loadingIndicator.BindComponent<LoadingIndicatorComponent>(textComponent, 2);
+		auto& loadingComponent = loadingIndicator.BindComponent<LoadingIndicatorComponent>(textComponent,
+																							[]() -> void
+																							{
+																								auto& proceedButton = EntityManager::GetInstance().CreateEntity("ProceedButton");
+																							    {
+																							        auto& texture = AssetManager::GetInstance().Acquire<Texture>(TextureNames::PLAY_BUTTON);
+																							        auto& transform = proceedButton.BindComponent<TransformComponent>();
+
+																							        auto& sprite = proceedButton.BindComponent<SpriteRendererComponent>(texture, transform);
+																							        transform.SetPosition({BaseRunner::WindowSize.Width * 0.95f, BaseRunner::WindowSize.Height * 0.92f});
+																							        transform.SetScale({0.5f, 0.5f});
+
+																							        proceedButton.BindComponent<ButtonComponent>(transform,
+																							                                                     sf::Vector2f{128.0f, 128.0f},
+																							                                                     []
+																							                                                     {
+																							                                                         SceneManager::GetInstance().UnloadActiveScenes();
+																							                                                         SceneManager::GetInstance().LoadScenes({Scenes::MAIN_SCENE});
+																							                                                     });
+
+																							        EntitySystemManager::GetInstance().MarkEntity<ButtonEventSystem>(proceedButton);
+																							        EntitySystemManager::GetInstance().MarkEntity<SpriteRendererSystem>(proceedButton);
+																							    }
+																							});
 
 		EntitySystemManager::GetInstance().MarkEntity<TextRenderSystem>(loadingIndicator);
 		EntitySystemManager::GetInstance().MarkEntity<LoadingIndicatorSystem>(loadingIndicator);
@@ -165,6 +226,9 @@ void LoadingScene::DestroyEntities()
 
 	auto* loadingIndicator = EntityManager::GetInstance().FindEntityByName("LoadingIndicator");
 	EntityManager::GetInstance().DestroyEntity(*loadingIndicator);
+
+	auto* fpsCounter = EntityManager::GetInstance().FindEntityByName("FPSCounter");
+	EntityManager::GetInstance().DestroyEntity(*fpsCounter);
 }
 
 void LoadingScene::UnloadResources()

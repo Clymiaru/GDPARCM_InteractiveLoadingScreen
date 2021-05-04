@@ -61,9 +61,9 @@ void LoadAssetAction<Resource>::OnExecuteAction()
 	m_MaxAsyncLoadedAssets++;
 	m_AssetStorageMutex->unlock();
 
-	Thread::Sleep(5.0f);
+	Thread::Sleep(1.0f);
 	Resource* resource = new Resource(m_AssetName, m_AssetFilepath);
-	Thread::Sleep(5.0f);
+	Thread::Sleep(1.0f);
 	INFO_LOG(LoadAssetAction, "Asset " << m_AssetName << " is loaded!");
 	
 	m_AssetStorageMutex->lock();

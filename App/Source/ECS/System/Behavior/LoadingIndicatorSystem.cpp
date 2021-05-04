@@ -17,17 +17,24 @@ void LoadingIndicatorSystem::Update(float deltaTime)
 	{
 		component->UpdateProgress(AssetManager::GetInstance().GetCurrentLoadedAsyncAssets());
 		component->UpdateMaxProgress(AssetManager::GetInstance().GetMaxAsyncAssets());
+		
 		const auto progress    = component->GetCurrentProgress();
 		const auto maxProgress = component->GetMaxExpectedProgress();
 
-		if (maxProgress == 0)
+		auto text = std::stringstream();
+		
+		if (progress == maxProgress)
 		{
-			component->GetTextComponent().UpdateText(std::to_string(0.0f));
+			component->ExecuteOnComplete();
+			text << "Complete!";
 		}
 		else
 		{
-			component->GetTextComponent().UpdateText(std::to_string((float)progress / maxProgress));
+			text << progress << " / " << maxProgress;
 		}
+
+		component->GetTextComponent().UpdateText(text.str());
+
 		
 	}
 }

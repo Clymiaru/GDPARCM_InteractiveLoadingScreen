@@ -3,11 +3,13 @@
 
 LoadingIndicatorComponent::LoadingIndicatorComponent(Entity& owner,
 													TextComponent& textComponent,
-													int maxExpectedLoadedAssets) :
+													std::function<void()> onComplete) :
 	AComponent{owner},
 	m_TextComponent{textComponent},
 	m_CurrentProgress{0},
-	m_MaxExpectedLoadedAssets{maxExpectedLoadedAssets}
+	m_MaxExpectedLoadedAssets{0},
+	m_OnLoadingComplete{onComplete},
+	m_IsLoadingComplete{false}
 {
 }
 
@@ -34,5 +36,15 @@ int LoadingIndicatorComponent::GetMaxExpectedProgress() const
 TextComponent& LoadingIndicatorComponent::GetTextComponent() const
 {
 	return m_TextComponent;
+}
+
+void LoadingIndicatorComponent::ExecuteOnComplete()
+{
+	if (!m_IsLoadingComplete)
+	{
+		m_OnLoadingComplete();
+		m_IsLoadingComplete = true;
+	}
+	
 }
 

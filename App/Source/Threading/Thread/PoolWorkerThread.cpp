@@ -21,7 +21,7 @@ void PoolWorkerThread::ScheduleAction(IWorkerAction* workerAction)
 
 void PoolWorkerThread::Run()
 {
-	if (m_Action != nullptr)
+	if (m_Action != nullptr && m_OnComplete != nullptr)
 	{
 		m_Action->OnExecuteAction();
 		m_OnComplete->OnCompleteAction(m_ID);

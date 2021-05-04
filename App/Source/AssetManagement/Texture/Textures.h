@@ -5,18 +5,11 @@ namespace TextureNames
 {
 	const String PLAY_BUTTON = "PlayButton";
 
-
+	// Textures for the Loading Scene
 	const String SHIORI_STAND = "ShioriStand";
 	const String SHIORI_COMIC = "ShioriComic";
 	const String SHIORI_RUN_ANIM = "ShioriRunAnim";
-
-	const String HATSUNE_STAND = "HatsuneStand";
-	const String HATSUNE_COMIC = "HatsuneComic";
-	const String HATSUNE_RUN_ANIM = "HatsuneRunAnim";
-
-	const String MIMI_STAND = "MimiStand";
-	const String MIMI_COMIC = "MimiComic";
-	const String MIMI_RUN_ANIM = "MimiRunAnim";
+	const String SHIORI_BG = "ShioriBackground";
 
 	// Textures for the Main Scene
 	const String TRANSITION_IMAGE = "TransitionImage";
@@ -38,18 +31,20 @@ namespace TextureNames
 namespace TextureFilepaths
 {
 	const String PLAY_BUTTON = "Content/PlayButton.png";
-	
+
+	// Textures for the Loading Scene
 	const String SHIORI_STAND = "Content/Shiori/Stand.png";
 	const String SHIORI_COMIC = "Content/Shiori/Comic.png";
-	const String SHIORI_RUN_ANIM = "Content/Shiori/RunAnim.png";
+	const String SHIORI_RUN_ANIM = "Content/Shiori/ShioriRun.png";
+	const String SHIORI_BG = "Content/Shiori/Background.png";
 
 	const String HATSUNE_STAND = "Content/Hatsune/Stand.png";
 	const String HATSUNE_COMIC = "Content/Hatsune/Comic.png";
-	const String HATSUNE_RUN_ANIM = "Content/Hatsune/RunAnim.png";
+	const String HATSUNE_RUN_ANIM = "Content/Hatsune/HatsuneRun.png";
 
 	const String MIMI_STAND = "Content/Mimi/Stand.png";
 	const String MIMI_COMIC = "Content/Mimi/Comic.png";
-	const String MIMI_RUN_ANIM = "Content/Mimi/RunAnim.png";
+	const String MIMI_RUN_ANIM = "Content/Mimi/MimiRun.png";
 
 	// Textures for the Main Scene
 	const String TRANSITION_IMAGE = "Content/MainScene/BlackScreen.png";
