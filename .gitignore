@@ -11,6 +11,3 @@ bin-int/
 
 # Rider genereated files and directories
 .idea/
-
-# Assets of the project
-App/Content/

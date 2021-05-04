@@ -50,7 +50,7 @@ project (GameName)
 	}
 
 	postbuildcommands {
-	    ("{COPY} %{prj.location}/Library/SFML/bin/openal32.dll %{wks.location}bin/"..OutputDir.. "/%{GameName}")
+	    ("{COPY} %{prj.location}Library/SFML/bin/openal32.dll %{wks.location}bin/"..OutputDir.. "/%{GameName}")
 	}
 
 	defines {
